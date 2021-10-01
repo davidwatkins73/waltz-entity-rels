@@ -1,11 +1,17 @@
 <script>
+	import EntityRelations from "./EntityRelations.svelte";
+
 	export let name;
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<div style="background: #0f2952; padding: 2em;">
+		<img  src="https://waltz.finos.org/site/img/waltz_badge_mono_600px.png">
+	</div>
+	<h1>Entity / Use Case Explorer</h1>
 </main>
+
+<EntityRelations/>
 
 <style>
 	main {

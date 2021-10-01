@@ -83,7 +83,7 @@
             .append("text")
             .attr("fill", "#444")
             .attr("dy", 20)
-            .attr("font-size", d => d.primary ? "20" : "18")
+            .attr("font-size", d => d.primary ? "19" : "18")
             .attr("dx", d => d.name.length * -1)
             .text(d => d.name);
 

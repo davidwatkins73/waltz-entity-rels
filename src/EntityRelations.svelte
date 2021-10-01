@@ -10,7 +10,7 @@
     let elem;
 
     const width = 1000;
-    const height = 1000;
+    const height = 700;
 
     $: tags = _.values($model.tags);
     let selectedTag = _.find(tags, t => t.name === 'Landscape');
@@ -126,7 +126,7 @@
 </script>
 
 
-<svg width="60%"
+<svg width="55%"
      bind:this={elem}>
     <g class="nodes"/>
     <g class="links"/>
@@ -163,7 +163,7 @@
         font-size: larger;
     }
     svg {
-        border: 1px solid red;
+        border: 1px solid #ccc;
     }
 
     :global(.node) {

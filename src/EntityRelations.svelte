@@ -81,9 +81,10 @@
 
         node
             .append("text")
-            .attr("fill", "grey")
-            .attr("dy", 16)
-            .attr("dx", d => d.name.length * -3)
+            .attr("fill", "#444")
+            .attr("dy", 20)
+            .attr("font-size", d => d.primary ? "20" : "18")
+            .attr("dx", d => d.name.length * -1)
             .text(d => d.name);
 
         simulation.on("tick", () => {
@@ -175,7 +176,7 @@
         user-select: none;
     }
 
-    .node text {
+    :global(.node text) {
         text-anchor: middle;
     }
 

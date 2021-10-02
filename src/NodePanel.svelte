@@ -1,5 +1,7 @@
 <script>
-    import {graphModel, relationships, selectedNode, selectedTag} from "./data-store";
+    import {graphModel, selectedNode, selectedTag} from "./data-store";
+    import {relationships} from "./model/relationships";
+
     import _ from "lodash";
 
     $: rels = $graphModel && $selectedNode && _.filter(

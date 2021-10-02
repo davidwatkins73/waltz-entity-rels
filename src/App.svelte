@@ -1,12 +1,11 @@
 <script>
 	import EntityRelations from "./EntityRelations.svelte";
-
-	export let name;
 </script>
 
 <main>
-	<div style="background: #0f2952; padding: 2em;">
-		<img  src="https://waltz.finos.org/site/img/waltz_badge_mono_600px.png">
+	<div style="background: #052960; padding: 1em;">
+		<img alt="Waltz banner"
+			 src="https://waltz.finos.org/site/img/waltz_badge_mono_600px.png">
 	</div>
 	<h1>Entity / Use Case Explorer</h1>
 </main>

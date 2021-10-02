@@ -1,6 +1,7 @@
 <script>
-    import {selectedTag, selectedNode, tags, graphModel} from "./data-store";
+    import {selectedTag, selectedNode} from "./data-store";
     import NodePanel from "./NodePanel.svelte";
+    import {tags} from "./model/tags";
 </script>
 
 
@@ -43,7 +44,5 @@
     label {
         font-weight: bolder;
     }
-
-
 
 </style>

@@ -10,6 +10,7 @@ export const selectedNode = writable(null);
 export const graphModel = derived(
     [selectedTag],
     ([tag]) => {
+        selectedNode.set(null);
         const links = relationships
             .filter(d => tag === null || _.includes(d.tags, tag))
             .map(d => {

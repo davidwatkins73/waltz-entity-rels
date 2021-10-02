@@ -1,6 +1,6 @@
 <script>
-    import {selectedTag, tags} from "./data-store";
-
+    import {selectedTag, selectedNode, tags, graphModel} from "./data-store";
+    import NodePanel from "./NodePanel.svelte";
 </script>
 
 
@@ -18,16 +18,21 @@
     {#if $selectedTag}
         <label for="desc">Description</label>
         <div id="desc">
-            {#each $selectedTag?.description as para}
+            {#each $selectedTag.description as para}
                 <p>
                     {para}
                 </p>
             {/each}
         </div>
     {/if}
+
+    {#if $selectedNode}
+        <NodePanel/>
+    {/if}
 </div>
 
 <style>
+
     .info-panel {
         width: 35%;
         display: inline-block;
@@ -38,4 +43,7 @@
     label {
         font-weight: bolder;
     }
+
+
+
 </style>

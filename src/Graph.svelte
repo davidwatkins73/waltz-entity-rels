@@ -1,8 +1,7 @@
 <script>
     import * as d3 from "d3";
+    import {selectedNode, graphModel} from "./data-store";
 
-    export let nodes = [];
-    export let links = [];
 
     function linkToId(d) {
         return d.source + "_" + d.target;
@@ -14,9 +13,9 @@
     let elem;
 
     $: simulation = d3
-        .forceSimulation(nodes, d => d.id)
+        .forceSimulation($graphModel.nodes, d => d.id)
         .force("link", d3
-            .forceLink(links, linkToId)
+            .forceLink($graphModel.links, linkToId)
             .id(d => d.id)
             .distance(80))
         .force("charge", d3.forceManyBody().strength(-80))
@@ -33,18 +32,21 @@
             .attr("stroke", "#bbb")
             .attr("stroke-opacity", 0.6)
             .selectAll("line")
-            .data(links, linkToId)
+            .data($graphModel.links, linkToId)
             .join("line")
-            .attr("stroke-width", d => Math.sqrt(d.value));
+            .attr("stroke-width", d => Math.sqrt(d.value))
+            .attr("marker-end", "url(#arrow)");
 
         let node = svg
             .select(".nodes")
             .selectAll(".node")
-            .data(nodes, d => d.id);
+            .data($graphModel.nodes, d => d.id);
 
-        const newNode = node.enter()
+        const newNode = node
+            .enter()
             .append("g")
             .classed("node", true)
+            .on("click", (evt, d) => $selectedNode = d)
             .call(drag(simulation));
 
         newNode
@@ -56,7 +58,7 @@
             .append("text")
             .attr("fill", "#444")
             .attr("dy", 20)
-            .attr("font-size", d => d.primary ? "19" : "18")
+            .attr("font-size", 18)
             .attr("dx", d => d.name.length * -1)
             .text(d => d.name);
 
@@ -105,6 +107,19 @@
 
 <svg width="55%"
      bind:this={elem}>
+    <defs>
+        <!-- arrowhead marker definition -->
+        <marker id="arrow"
+                viewBox="0 0 10 10"
+                refX="15" refY="5"
+                fill="#ccc"
+                opacity="0.5"
+                markerWidth="4"
+                markerHeight="4"
+                orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" />
+        </marker>
+    </defs>
     <g class="links"/>
     <g class="nodes"/>
 </svg>

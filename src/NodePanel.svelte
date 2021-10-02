@@ -2,7 +2,6 @@
     import {graphModel, relationships, selectedNode, selectedTag} from "./data-store";
     import _ from "lodash";
 
-
     $: rels = $graphModel && $selectedNode && _.filter(
         $graphModel.links,
         r => (r.source.id === $selectedNode.id) || (r.target.id === $selectedNode.id));
@@ -23,9 +22,7 @@
     </h3>
     <div>
         {#each $selectedNode.description || [] as para}
-            <p>
-                {para}
-            </p>
+            <p>{para}</p>
         {/each}
     </div>
 
@@ -35,9 +32,9 @@
             <th colspan="3">Relationships</th>
         </tr>
         <tr>
-        <th>Source</th>
-        <th>Relation</th>
-        <th>Target</th>
+            <th>Source</th>
+            <th>Relation</th>
+            <th>Target</th>
         </tr>
         </thead>
         <tbody>
@@ -77,8 +74,8 @@
             {/each}
         </ul>
     {/if}
-
 </div>
+
 
 <style>
     .node-info {

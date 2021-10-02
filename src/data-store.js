@@ -1,6 +1,7 @@
 import {writable} from "svelte/store";
 import _ from "lodash";
 
+
 const families = {
     app: { color: "green" },
     ci: { color: "red" },
@@ -11,7 +12,8 @@ const families = {
     misc: { color: "yellow"}
 }
 
-const entities = {
+
+const entityMap = {
     application: {id: 1, name: 'Application', primary: true, family: families.app},
     orgUnit: {id: 2, name: 'Organisational Unit', primary: true, family: families.app},
     changeInitiative: {id: 3, name: 'Change Initiative', primary: true, family: families.ci},
@@ -42,6 +44,8 @@ const entities = {
     attestation: {id: 28, name: 'Attestation', family: families.survey}
 };
 
+export const entities = _.values(entityMap);
+
 const relTypes = {
     owns: {id: 1, name: ["Owns", "Owned by"]},
     has: {id: 2, name: ["Has", "Referenced"]},
@@ -49,7 +53,7 @@ const relTypes = {
     refs: {id: 2, name: ["References", "Referenced By"]},
 };
 
-const tags = {
+const tagMap = {
     landscape: {
         name: "Landscape",
         description:  [`
@@ -108,59 +112,59 @@ const tags = {
         description: []
     }
 }
-const relationships = [
-    { source: entities.actor, target: entities.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
-    { source: entities.application, target: entities.assessment, type: relTypes.has, cardinality: "1n", tags: [tags.landscape, tags.records]},
-    { source: entities.application, target: entities.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
-    { source: entities.application, target: entities.cost, type: relTypes.has, cardinality: "1n", tags: []},
-    { source: entities.application, target: entities.involvement, type: relTypes.has, cardinality: "1n", tags: [tags.landscape]},
-    { source: entities.application, target: entities.logicalFlow, type: relTypes.has, cardinality: "1n", tags: [tags.landscape, tags.bcbs]},
-    { source: entities.application, target: entities.measurableRating, type: relTypes.has, cardinality: "1n", tags: [tags.landscape, tags.ft, tags.records]},
-    { source: entities.application, target: entities.surveyInstance, type: relTypes.has, cardinality: "1n", tags: [tags.records, tags.surveys, tags.gov]},
-    { source: entities.application, target: entities.attestation, type: relTypes.has, cardinality: "1n", tags: [tags.surveys]},
-    { source: entities.assessment, target: entities.ratingSchemeItem, type: relTypes.has, cardinality: "1n", tags: [tags.records, tags.ft]},
-    { source: entities.assessmentDefinition, target: entities.assessment, type: relTypes.has, cardinality: "1n", tags: [tags.records, tags.ft]},
-    { source: entities.assessmentDefinition, target: entities.ratingScheme, type: relTypes.has, cardinality: "1n", tags: [tags.records, tags.ft]},
-    { source: entities.changeInitiative, target: entities.application, type: relTypes.refs, cardinality: "1n", tags: [tags.landscape, tags.gov]},
-    { source: entities.changeInitiative, target: entities.assessment, type: relTypes.has, cardinality: "1n", tags: [tags.gov]},
-    { source: entities.changeInitiative, target: entities.assessment, type: relTypes.has, cardinality: "1n", tags: [tags.gov]},
-    { source: entities.changeInitiative, target: entities.bookmark, type: relTypes.has, cardinality: "1n", tags: [tags.gov]},
-    { source: entities.changeInitiative, target: entities.involvement, type: relTypes.has, cardinality: "1n", tags: [tags.gov]},
-    { source: entities.changeInitiative, target: entities.surveyInstance, type: relTypes.has, cardinality: "1n", tags: [tags.surveys, tags.gov]},
-    { source: entities.costKind, target: entities.cost, type: relTypes.has, cardinality: "1n", tags: []},
-    { source: entities.dataType, target: entities.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
-    { source: entities.flowDiagram, target: entities.logicalFlow, type: relTypes.has, cardinality: "1n", tags: [tags.bcbs]},
-    { source: entities.involvement, target: entities.person, type: relTypes.refs, cardinality: "1n", tags: [tags.landscape, tags.gov]},
-    { source: entities.involvementKind, target: entities.involvement, type: relTypes.has, cardinality: "1n", tags: [tags.gov]},
-    { source: entities.logicalFlow, target: entities.actor, type: relTypes.has, cardinality: "1", tags: [tags.bcbs]},
-    { source: entities.logicalFlow, target: entities.dataType, type: relTypes.describes, cardinality: "1n", tags: [tags.landscape, tags.bcbs]},
-    { source: entities.logicalFlow, target: entities.physicalFlow, type: relTypes.has, cardinality: "1n", tags: [tags.landscape, tags.bcbs]},
-    { source: entities.measurable, target: entities.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
-    { source: entities.measurable, target: entities.involvement, type: relTypes.has, cardinality: "1n", tags: []},
-    { source: entities.measurableCategory, target: entities.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
-    { source: entities.measurableCategory, target: entities.measurable, type: relTypes.owns, cardinality: "1n", tags: [tags.landscape, tags.ft, tags.records]},
-    { source: entities.measurableCategory, target: entities.ratingScheme, type: relTypes.has, cardinality: "1", tags: [tags.ft, tags.records]},
-    { source: entities.measurableRating, target: entities.measurable, type: relTypes.refs, cardinality: "1", tags: [tags.landscape, tags.ft, tags.records]},
-    { source: entities.measurableRating, target: entities.ratingSchemeItem, type: relTypes.refs, cardinality: "1", tags: [tags.ft, tags.records]},
-    { source: entities.orgUnit, target: entities.application, type: relTypes.owns, cardinality: "1n", tags: [tags.landscape, tags.bcbs, tags.ft]},
-    { source: entities.orgUnit, target: entities.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
-    { source: entities.orgUnit, target: entities.involvement, type: relTypes.has, cardinality: "1n", tags: []},
-    { source: entities.physicalFlow, target: entities.bookmark, type: relTypes.has, cardinality: "1n", tags: [tags.bcbs]},
-    { source: entities.physicalSpecification, target: entities.physicalFlow, type: relTypes.describes, cardinality: "1n", tags: [tags.bcbs]},
-    { source: entities.physicalSpecification, target: entities.physicalFlow, type: relTypes.describes, cardinality: "1n", tags: [tags.bcbs]},
-    { source: entities.ratingScheme, target: entities.ratingSchemeItem, type: relTypes.has, cardinality: "1n", tags: [tags.ft, tags.records]},
-    { source: entities.surveyInstance, target: entities.surveyQuestionResponse, type: relTypes.has, cardinality: "1n", tags: [tags.surveys]},
-    { source: entities.surveyInstance, target: entities.surveyInstanceRecipient, type: relTypes.has, cardinality: "1n", tags: [tags.surveys]},
-    { source: entities.surveyInstanceRecipient, target: entities.person, type: relTypes.has, cardinality: "1", tags: [tags.surveys]},
-    { source: entities.surveyQuestionResponse, target: entities.surveyQuestion, type: relTypes.refs, cardinality: "1n", tags: [tags.surveys]},
-    { source: entities.surveyTemplate, target: entities.surveyInstance, type: relTypes.has, cardinality: "1n", tags: [tags.surveys, tags.records]},
-    { source: entities.surveyTemplate, target: entities.surveyQuestion, type: relTypes.has, cardinality: "1n", tags: [tags.surveys]},
+
+export const tags = _.values(tagMap);
+
+
+export const relationships = [
+    { source: entityMap.actor, target: entityMap.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
+    { source: entityMap.application, target: entityMap.assessment, type: relTypes.has, cardinality: "1n", tags: [tagMap.landscape, tagMap.records]},
+    { source: entityMap.application, target: entityMap.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
+    { source: entityMap.application, target: entityMap.cost, type: relTypes.has, cardinality: "1n", tags: []},
+    { source: entityMap.application, target: entityMap.involvement, type: relTypes.has, cardinality: "1n", tags: [tagMap.landscape]},
+    { source: entityMap.application, target: entityMap.logicalFlow, type: relTypes.has, cardinality: "1n", tags: [tagMap.landscape, tagMap.bcbs]},
+    { source: entityMap.application, target: entityMap.measurableRating, type: relTypes.has, cardinality: "1n", tags: [tagMap.landscape, tagMap.ft, tagMap.records]},
+    { source: entityMap.application, target: entityMap.surveyInstance, type: relTypes.has, cardinality: "1n", tags: [tagMap.records, tagMap.surveys, tagMap.gov]},
+    { source: entityMap.application, target: entityMap.attestation, type: relTypes.has, cardinality: "1n", tags: [tagMap.surveys]},
+    { source: entityMap.assessment, target: entityMap.ratingSchemeItem, type: relTypes.has, cardinality: "1n", tags: [tagMap.records, tagMap.ft]},
+    { source: entityMap.assessmentDefinition, target: entityMap.assessment, type: relTypes.has, cardinality: "1n", tags: [tagMap.records, tagMap.ft]},
+    { source: entityMap.assessmentDefinition, target: entityMap.ratingScheme, type: relTypes.has, cardinality: "1n", tags: [tagMap.records, tagMap.ft]},
+    { source: entityMap.changeInitiative, target: entityMap.application, type: relTypes.refs, cardinality: "1n", tags: [tagMap.landscape, tagMap.gov]},
+    { source: entityMap.changeInitiative, target: entityMap.assessment, type: relTypes.has, cardinality: "1n", tags: [tagMap.gov]},
+    { source: entityMap.changeInitiative, target: entityMap.assessment, type: relTypes.has, cardinality: "1n", tags: [tagMap.gov]},
+    { source: entityMap.changeInitiative, target: entityMap.bookmark, type: relTypes.has, cardinality: "1n", tags: [tagMap.gov]},
+    { source: entityMap.changeInitiative, target: entityMap.involvement, type: relTypes.has, cardinality: "1n", tags: [tagMap.gov]},
+    { source: entityMap.changeInitiative, target: entityMap.surveyInstance, type: relTypes.has, cardinality: "1n", tags: [tagMap.surveys, tagMap.gov]},
+    { source: entityMap.costKind, target: entityMap.cost, type: relTypes.has, cardinality: "1n", tags: []},
+    { source: entityMap.dataType, target: entityMap.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
+    { source: entityMap.flowDiagram, target: entityMap.logicalFlow, type: relTypes.has, cardinality: "1n", tags: [tagMap.bcbs]},
+    { source: entityMap.involvement, target: entityMap.person, type: relTypes.refs, cardinality: "1n", tags: [tagMap.landscape, tagMap.gov]},
+    { source: entityMap.involvementKind, target: entityMap.involvement, type: relTypes.has, cardinality: "1n", tags: [tagMap.gov]},
+    { source: entityMap.logicalFlow, target: entityMap.actor, type: relTypes.has, cardinality: "1", tags: [tagMap.bcbs]},
+    { source: entityMap.logicalFlow, target: entityMap.dataType, type: relTypes.describes, cardinality: "1n", tags: [tagMap.landscape, tagMap.bcbs]},
+    { source: entityMap.logicalFlow, target: entityMap.physicalFlow, type: relTypes.has, cardinality: "1n", tags: [tagMap.landscape, tagMap.bcbs]},
+    { source: entityMap.measurable, target: entityMap.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
+    { source: entityMap.measurable, target: entityMap.involvement, type: relTypes.has, cardinality: "1n", tags: []},
+    { source: entityMap.measurableCategory, target: entityMap.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
+    { source: entityMap.measurableCategory, target: entityMap.measurable, type: relTypes.owns, cardinality: "1n", tags: [tagMap.landscape, tagMap.ft, tagMap.records]},
+    { source: entityMap.measurableCategory, target: entityMap.ratingScheme, type: relTypes.has, cardinality: "1", tags: [tagMap.ft, tagMap.records]},
+    { source: entityMap.measurableRating, target: entityMap.measurable, type: relTypes.refs, cardinality: "1", tags: [tagMap.landscape, tagMap.ft, tagMap.records]},
+    { source: entityMap.measurableRating, target: entityMap.ratingSchemeItem, type: relTypes.refs, cardinality: "1", tags: [tagMap.ft, tagMap.records]},
+    { source: entityMap.orgUnit, target: entityMap.application, type: relTypes.owns, cardinality: "1n", tags: [tagMap.landscape, tagMap.bcbs, tagMap.ft]},
+    { source: entityMap.orgUnit, target: entityMap.bookmark, type: relTypes.has, cardinality: "1n", tags: []},
+    { source: entityMap.orgUnit, target: entityMap.involvement, type: relTypes.has, cardinality: "1n", tags: []},
+    { source: entityMap.physicalFlow, target: entityMap.bookmark, type: relTypes.has, cardinality: "1n", tags: [tagMap.bcbs]},
+    { source: entityMap.physicalSpecification, target: entityMap.physicalFlow, type: relTypes.describes, cardinality: "1n", tags: [tagMap.bcbs]},
+    { source: entityMap.physicalSpecification, target: entityMap.physicalFlow, type: relTypes.describes, cardinality: "1n", tags: [tagMap.bcbs]},
+    { source: entityMap.ratingScheme, target: entityMap.ratingSchemeItem, type: relTypes.has, cardinality: "1n", tags: [tagMap.ft, tagMap.records]},
+    { source: entityMap.surveyInstance, target: entityMap.surveyQuestionResponse, type: relTypes.has, cardinality: "1n", tags: [tagMap.surveys]},
+    { source: entityMap.surveyInstance, target: entityMap.surveyInstanceRecipient, type: relTypes.has, cardinality: "1n", tags: [tagMap.surveys]},
+    { source: entityMap.surveyInstanceRecipient, target: entityMap.person, type: relTypes.has, cardinality: "1", tags: [tagMap.surveys]},
+    { source: entityMap.surveyQuestionResponse, target: entityMap.surveyQuestion, type: relTypes.refs, cardinality: "1n", tags: [tagMap.surveys]},
+    { source: entityMap.surveyTemplate, target: entityMap.surveyInstance, type: relTypes.has, cardinality: "1n", tags: [tagMap.surveys, tagMap.records]},
+    { source: entityMap.surveyTemplate, target: entityMap.surveyQuestion, type: relTypes.has, cardinality: "1n", tags: [tagMap.surveys]},
 ];
 
 
-export const model = writable({
-    entities: _.values(entities),
-    relationships,
-    tags
-});
+export const selectedTag = writable(tagMap.bcbs);
 

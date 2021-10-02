@@ -13,6 +13,11 @@
 
 <EntityRelations/>
 
+
+<p>
+	The source (and data) is available on <a href="https://github.com/davidwatkins73/waltz-entity-rels">GitHub</a>.
+</p>
+
 <style>
 	main {
 		text-align: center;

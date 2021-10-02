@@ -8,9 +8,9 @@ const families = {
     person: { color: "orange"},
     flow: { color: "blue"},
     taxonomy: { color: "brown"},
-    survey: { color: "pink"},
-    misc: { color: "yellow"}
-}
+    survey: { color: "purple"},
+    misc: { color: "pink"}
+};
 
 
 const entityMap = {
@@ -41,7 +41,9 @@ const entityMap = {
     ratingScheme: {id: 25, name: 'Rating Scheme', family: families.taxonomy},
     ratingSchemeItem: {id: 26, name: 'Rating Scheme Item', family: families.taxonomy},
     surveyInstanceRecipient: {id: 27, name: 'Survey Instance Recipient', family: families.survey},
-    attestation: {id: 28, name: 'Attestation', family: families.survey}
+    attestation: {id: 28, name: 'Attestation', family: families.survey},
+    specificationAttribute: {id: 29, name: 'Specification Attribute', family: families.flow},
+    dataElement: {id: 30, name: 'Data Element', family: families.flow}
 };
 
 export const entities = _.values(entityMap);
@@ -111,7 +113,7 @@ const tagMap = {
         name: "Programme Governance",
         description: []
     }
-}
+};
 
 export const tags = _.values(tagMap);
 
@@ -156,6 +158,8 @@ export const relationships = [
     { source: entityMap.physicalFlow, target: entityMap.bookmark, type: relTypes.has, cardinality: "1n", tags: [tagMap.bcbs]},
     { source: entityMap.physicalSpecification, target: entityMap.physicalFlow, type: relTypes.describes, cardinality: "1n", tags: [tagMap.bcbs]},
     { source: entityMap.physicalSpecification, target: entityMap.physicalFlow, type: relTypes.describes, cardinality: "1n", tags: [tagMap.bcbs]},
+    { source: entityMap.physicalSpecification, target: entityMap.specificationAttribute, type: relTypes.describes, cardinality: "1n", tags: [tagMap.bcbs]},
+    { source: entityMap.specificationAttribute, target: entityMap.dataElement, type: relTypes.describes, cardinality: "1", tags: [tagMap.bcbs]},
     { source: entityMap.ratingScheme, target: entityMap.ratingSchemeItem, type: relTypes.has, cardinality: "1n", tags: [tagMap.ft, tagMap.records]},
     { source: entityMap.surveyInstance, target: entityMap.surveyQuestionResponse, type: relTypes.has, cardinality: "1n", tags: [tagMap.surveys]},
     { source: entityMap.surveyInstance, target: entityMap.surveyInstanceRecipient, type: relTypes.has, cardinality: "1n", tags: [tagMap.surveys]},

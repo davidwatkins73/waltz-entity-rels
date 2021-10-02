@@ -40,23 +40,27 @@
         let node = svg
             .select(".nodes")
             .selectAll(".node")
-            .data(nodes, d => d.id)
-            .join("g")
+            .data(nodes, d => d.id);
+
+        const newNode = node.enter()
+            .append("g")
             .classed("node", true)
             .call(drag(simulation));
 
-        node
+        newNode
             .append("circle")
             .attr("r", d => d.primary ? 7 : 5)
             .attr("fill", d => d.family.color);
 
-        node
+        newNode
             .append("text")
             .attr("fill", "#444")
             .attr("dy", 20)
             .attr("font-size", d => d.primary ? "19" : "18")
             .attr("dx", d => d.name.length * -1)
             .text(d => d.name);
+
+        node.exit().remove();
 
         simulation.on("tick", () => {
             link
@@ -65,7 +69,8 @@
                 .attr("x2", d => d.target.x)
                 .attr("y2", d => d.target.y);
 
-            node
+            newNode
+                .merge(node)
                 .attr("transform", d => `translate(${d.x} ${d.y})`)
         });
     }
@@ -100,8 +105,8 @@
 
 <svg width="55%"
      bind:this={elem}>
-    <g class="nodes"/>
     <g class="links"/>
+    <g class="nodes"/>
 </svg>
 
 <style>

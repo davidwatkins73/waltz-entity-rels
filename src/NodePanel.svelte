@@ -48,7 +48,7 @@
                         {rel.source.name}
                     </button>
                 </td>
-                <td>{rel.type.name[0]}</td>
+                <td>{rel.type.name}</td>
                 <td>
                     <button class="btn-link"
                             on:click={() => $selectedNode = rel.target}>

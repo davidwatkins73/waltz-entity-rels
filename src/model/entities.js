@@ -44,9 +44,34 @@ export const entityMap = {
     dataElement: {id: 30, name: 'Data Element', family: families.flow}
 };
 
+
 entityMap.application.description = [
     `Applications are one of the fundamental entities in Waltz.  Each app has basic info such as name and status (dev, prod etc).`,
     `Each app is owned by an organisational unit and are referenced by many other entities within Waltz.`,
 ];
 
+entityMap.orgUnit.description = [
+    `Organisational Units are a fundamental hierarchical, structural element in Waltz.`,
+    `Every App belongs to an org unit and they are frequently used as a unit of aggregation/reporting.  This aggregation happens automatically.`
+];
+
+entityMap.flowDiagram.description = [
+    `Flow Diagrams are used to depict data lineage through an organisation.  They are a combination of a diagram showing flows and apps and a bill of materials (BoM) which allows Waltz to aggregate diagram content.`
+];
+
+entityMap.logicalFlow.description = [
+    `Logical Flows link applications (and sometimes actors).  The logical flow basically states that there is some form of communication from the source to the target system.`,
+    `Logical Flows can be enriched with Data Types and are referenced by physical flows and diagrams.`
+];
+
+entityMap.actor.description = [
+    `Actors are used as placeholders to represent non-application systems.`,
+    `These are typically institutions (Bank of England) or named roles (Chief Risk Officer). There primary usage is in representing flows.`,
+    `Actors can be classified as internal or external.`
+];
+
+entityMap.involvement.description = [
+    `Involvements are used to link people to entities with a named involvement kind.`,
+    `Examples include: App Owners, Data Content Owners, Responsible CIO, App Sponsor etc.`
+];
 export const entities = _.values(entityMap);

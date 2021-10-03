@@ -16,6 +16,8 @@
         {/each}
     </select>
 
+    <span>...or <button on:click={() => $selectedTag = null}> show combined diagram</button></span>
+
     {#if $selectedTag}
         <label for="desc">Description</label>
         <div id="desc">

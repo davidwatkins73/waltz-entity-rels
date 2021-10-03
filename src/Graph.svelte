@@ -2,7 +2,6 @@
     import * as d3 from "d3";
     import {selectedNode, graphModel} from "./data-store";
 
-
     function linkToId(d) {
         return d.source + "_" + d.target;
     }
@@ -46,6 +45,7 @@
             .enter()
             .append("g")
             .classed("node", true)
+            .attr("data-node-id", d => d.id)
             .on("click", (evt, d) => $selectedNode = d)
             .call(drag(simulation));
 
@@ -73,7 +73,7 @@
 
             newNode
                 .merge(node)
-                .attr("transform", d => `translate(${d.x} ${d.y})`)
+                .attr("transform", d => `translate(${d.x} ${d.y})`);
         });
     }
 
@@ -102,6 +102,12 @@
             .on("end", dragended);
     }
 
+    $: {
+        d3.selectAll(".node").classed("highlight", false);
+        if ($selectedNode) {
+            d3.selectAll(`.node[data-node-id='${$selectedNode.id}']`).classed("highlight", true);
+        }
+    }
 </script>
 
 
@@ -110,7 +116,8 @@
         <!-- arrowhead marker definition -->
         <marker id="arrow"
                 viewBox="0 0 10 10"
-                refX="15" refY="5"
+                refX="15"
+                refY="5"
                 fill="#ccc"
                 opacity="0.5"
                 markerWidth="4"
@@ -139,5 +146,19 @@
 
     :global(.node text) {
         text-anchor: middle;
+    }
+
+    :global(.node.highlight circle) {
+        r: 10;
+    }
+    :global(.node.highlight text) {
+        font-weight: bolder;
+    }
+
+    :global(.node circle){
+        transition: r 0.5s;
+    }
+    :global(.node text){
+        transition: font-weight 0.5s;
     }
 </style>

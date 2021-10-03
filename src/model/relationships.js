@@ -57,5 +57,7 @@ export const relationships = [
     { source: entityMap.surveyQuestionResponse, target: entityMap.surveyQuestion, type: relTypes.refs,  tags: [tagMap.surveys]},
     { source: entityMap.surveyTemplate, target: entityMap.surveyInstance, type: relTypes.has,  tags: [tagMap.surveys, tagMap.records]},
     { source: entityMap.surveyTemplate, target: entityMap.surveyQuestion, type: relTypes.has,  tags: [tagMap.surveys]},
+    { source: entityMap.attestation, target: entityMap.attestationRecipient, type: relTypes.has,  tags: []},
+    { source: entityMap.attestationRecipient, target: entityMap.person, type: relTypes.has,  tags: []},
 ];
 

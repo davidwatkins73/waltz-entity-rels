@@ -39,9 +39,10 @@ export const entityMap = {
     ratingScheme: {id: 25, name: 'Rating Scheme', family: families.taxonomy},
     ratingSchemeItem: {id: 26, name: 'Rating Scheme Item', family: families.taxonomy},
     surveyInstanceRecipient: {id: 27, name: 'Survey Instance Recipient', family: families.survey},
-    attestation: {id: 28, name: 'Attestation', family: families.survey},
+    attestation: {id: 28, name: 'Attestation', family: families.misc},
     specificationAttribute: {id: 29, name: 'Specification Attribute', family: families.flow},
-    dataElement: {id: 30, name: 'Data Element', family: families.flow}
+    dataElement: {id: 30, name: 'Data Element', family: families.flow},
+    attestationRecipient: {id: 31, name: 'Attestation Recipient', family: families.misc},
 };
 
 

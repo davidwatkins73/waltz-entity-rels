@@ -140,5 +140,20 @@ entityMap.surveyQuestion.description = [
     `Questions can have predicates which control when they are presented to the user (ie. if Q1 is 'No' then don't ask Q2)`
 ];
 
+entityMap.surveyInstance.description = [
+    `An instance of a survey template assigned to a entity (either an app or change initiative).`,
+    `Each instance has it's own lifecycle and may have one or more recipients.`
+];
+
+entityMap.assessmentDefinition.description = [
+    `Assessments provide a single data point against an entity (typically Apps or Change Initiatives).`,
+    `The Assessment Definition describes the assessment, details where it can be used and links a rating scheme (providing an enumerations of possible values).`,
+];
+
+entityMap.assessment.description = [
+    `Assessments provide singular data points against an entity. The provide a mapping to between the entity, the definition and the rating item.`,
+    `They may be declared read only or have their access limited via the associated definition.`,
+];
+
 
 export const entities = _.values(entityMap);

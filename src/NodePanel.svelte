@@ -61,8 +61,8 @@
     </table>
 
     {#if useCases}
-        <label class="use-cases"
-               for="use-cases">
+    <div class="use-cases">
+        <label for="use-cases">
             Appears in other use cases:
         </label>
         <ul id="use-cases">
@@ -75,6 +75,7 @@
                 </li>
             {/each}
         </ul>
+    </div>
     {/if}
 </div>
 
@@ -92,7 +93,16 @@
 
     table {
         width: 100%;
-        border: 1px solid #eee;
+        font-size: smaller;
+    }
+
+    thead {
+        background-color: #f2f2f2;
+    }
+
+
+    tbody tr:nth-child(even) {
+        background-color: #f8f8f8;
     }
 
     th {
@@ -113,5 +123,9 @@
         color: #069;
         text-decoration: underline;
         cursor: pointer;
+    }
+
+    p {
+        margin: 8px;
     }
 </style>

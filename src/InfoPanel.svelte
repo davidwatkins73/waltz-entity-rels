@@ -42,4 +42,7 @@
         font-weight: bolder;
     }
 
+    p {
+        margin: 8px;
+    }
 </style>

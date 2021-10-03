@@ -74,4 +74,70 @@ entityMap.involvement.description = [
     `Involvements are used to link people to entities with a named involvement kind.`,
     `Examples include: App Owners, Data Content Owners, Responsible CIO, App Sponsor etc.`
 ];
+
+entityMap.physicalFlow.description = [
+    `Physical Flows are used to record manifestations of logical flows.`,
+    `They are owned by logical flows, which provide the source and target.  Each physical flow details frequency, transport mechanisms etc.`
+];
+
+entityMap.physicalSpecification.description = [
+    `Each physical flow can be further defined by a specification.`,
+    `The specification details the metadata which describes the content of the flow and may be shared across flows.`
+];
+
+entityMap.specificationAttribute.description = [
+    `Each physical spec may contain a list of attributes.`,
+    `Attributes can be linked to a Data Dictionary terms (aka Data Element)`
+];
+
+entityMap.dataElement.description = [
+    `Data Elements (aka Data Dictionary terms) provide standardised definitions of spec attributes`
+];
+
+entityMap.bookmark.description = [
+    `Waltz supports 'typed' bookmarks.  These are simply categorized links to external resources`
+];
+
+entityMap.attestation.description = [
+    `Attestations are used to manually verify data correctness.`,
+    `Like surveys, attestations can be issued against a group of applications and are assigned to people with specific involvements to those apps.`
+];
+
+entityMap.measurableCategory.description = [
+    `Categories are used to group related measurables together, forming a taxonomy.`,
+    `Examples include; Functional, Process, and Product taxonomies.`
+];
+
+entityMap.measurable.description = [
+    `A single entry in a hierarchical measurable category.`,
+    `Application use measurables to describe themselves (i.e. a functional profile).`,
+];
+
+entityMap.measurableRating.description = [
+    `Used to link applications with measurables (taxonomy items) using a specific rating.`,
+    `For example: Application 'X' is linked to 'Payments' with a rating of 'Invest'.`,
+];
+
+entityMap.ratingScheme.description = [
+    `Groups a set of rating items into a single scheme which can be used by measurable ratings or assessments.`,
+    `For example: the 'Investment' scheme may have values: 'Invest', 'Hold', 'Disinvest'.`,
+];
+
+entityMap.ratingSchemeItem.description = [
+    `A single rating item which belongs to a parent scheme.`,
+    `Each item has a name, description and a color used when presenting ratings visually.`,
+    'Additionally, ratings can be restricted to certain roles or may be defined read only (if assigned programmatically)'
+];
+
+entityMap.surveyTemplate.description = [
+    `A survey template groups a collection of questions into a single survey.  The template also defines the applicability of the survey (e.g. for applications only)`,
+];
+
+entityMap.surveyQuestion.description = [
+    `A single question in a survey.  Numerous types of question are supported including:`,
+    `Basic types (numbers, strings, enums, list), people refs, app refs, taxonomy trees etc`,
+    `Questions can have predicates which control when they are presented to the user (ie. if Q1 is 'No' then don't ask Q2)`
+];
+
+
 export const entities = _.values(entityMap);

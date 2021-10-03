@@ -81,10 +81,10 @@
 
 <style>
     .node-info {
-        padding-top: 1em;
+        padding-top: 0.5em;
     }
 
-    .node-info h3 {
+    h3 {
         border-top-width: 3px;
         padding-top: 0.5em;
         border-top-style: solid;

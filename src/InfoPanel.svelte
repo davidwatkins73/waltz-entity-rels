@@ -35,10 +35,7 @@
 <style>
 
     .info-panel {
-        width: 35%;
-        display: inline-block;
-        vertical-align: top;
-        font-size: larger;
+
     }
 
     label {

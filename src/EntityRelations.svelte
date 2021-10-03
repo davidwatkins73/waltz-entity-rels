@@ -3,8 +3,12 @@
     import InfoPanel from "./InfoPanel.svelte";
 </script>
 
-<Graph/>
-<InfoPanel/>
+<div style="display: inline-block; width: 45%;">
+    <Graph/>
+</div>
+<div style="display: inline-block; width: 50%; vertical-align: top;">
+    <InfoPanel/>
+</div>
 
 <style>
 </style>

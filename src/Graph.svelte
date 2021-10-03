@@ -105,8 +105,7 @@
 </script>
 
 
-<svg width="55%"
-     bind:this={elem}>
+<svg bind:this={elem}>
     <defs>
         <!-- arrowhead marker definition -->
         <marker id="arrow"

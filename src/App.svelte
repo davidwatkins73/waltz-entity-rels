@@ -2,6 +2,10 @@
 	import EntityRelations from "./EntityRelations.svelte";
 </script>
 
+<head>
+	<title>Waltz: Explorer</title>
+</head>
+
 <main>
 	<div style="background: #052960; padding: 1em;">
 		<img alt="Waltz banner"

@@ -92,6 +92,7 @@
     }
 
     table {
+        padding: 12px;
         width: 100%;
         font-size: smaller;
     }
